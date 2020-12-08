@@ -27,10 +27,8 @@ keys.addEventListener('click', (event) => {
         */
 
 		if (inputDisplay === '0') {
-			userInput.textContent =
-				prevKeyType === 'operator' ? inputDisplay + keyValue : keyValue;
-			equation =
-				prevKeyType === 'operator' ? equation + key.value : key.value;
+			userInput.textContent = prevKeyType === 'operator' ? inputDisplay + keyValue : keyValue;
+			equation = prevKeyType === 'operator' ? equation + key.value : key.value;
 			decimalCheck = decimalCheck + keyValue;
 		} else {
 			// check length so numbers stay within box
@@ -38,17 +36,10 @@ keys.addEventListener('click', (event) => {
 			if (decimalCheck.length >= 19) {
 				let replaceNumber = decimalCheck;
 				decimalCheck = Number(decimalCheck).toExponential(2);
-				userInput.textContent = inputDisplay.replace(
-					replaceNumber,
-					decimalCheck
-				);
+				userInput.textContent = inputDisplay.replace(replaceNumber, decimalCheck);
 			} else {
 				// check for infinity or NaN
-				userInput.textContent = userInput.textContent.includes('N')
-					? 'NaN'
-					: userInput.textContent.includes('I')
-					? 'Infinity'
-					: inputDisplay + keyValue;
+				userInput.textContent = userInput.textContent.includes('N') ? 'NaN' : userInput.textContent.includes('I') ? 'Infinity' : inputDisplay + keyValue;
 				equation = equation + key.value;
 				decimalCheck = decimalCheck + key.value;
 			}
@@ -59,12 +50,7 @@ keys.addEventListener('click', (event) => {
     2. and display does not include infinity
     3. replace decimalCheck with blank to store next number
     */
-	if (
-		type === 'operator' &&
-		prevKeyType !== 'operator' &&
-		!isEqaulsPressed &&
-		!inputDisplay.includes('Infinity')
-	) {
+	if (type === 'operator' && prevKeyType !== 'operator' && !isEqaulsPressed && !inputDisplay.includes('Infinity')) {
 		decimalCheck = '';
 		userInput.textContent = inputDisplay + ' ' + keyValue + ' ';
 		equation = equation + ' ' + key.value + ' ';
@@ -75,12 +61,7 @@ keys.addEventListener('click', (event) => {
     3. #2 so if user presses decimal after operator it won't be displayed
     4. check if the number already contains a decimal
     */
-	if (
-		type === 'decimal' &&
-		(prevKeyType === 'number' || inputDisplay === '0') &&
-		!isEqaulsPressed &&
-		!inputDisplay.includes('Infinity')
-	) {
+	if (type === 'decimal' && (prevKeyType === 'number' || inputDisplay === '0') && !isEqaulsPressed && !inputDisplay.includes('Infinity')) {
 		if (!decimalCheck.includes('.')) {
 			userInput.textContent = inputDisplay + keyValue;
 			equation = equation + key.value;
@@ -90,10 +71,7 @@ keys.addEventListener('click', (event) => {
 
 	if ((type === 'backspace' || type === 'reset') && inputDisplay !== '0') {
 		if (type === 'backspace' && !isEqaulsPressed) {
-			userInput.textContent = inputDisplay.substring(
-				0,
-				inputDisplay.length - 1
-			);
+			userInput.textContent = inputDisplay.substring(0, inputDisplay.length - 1);
 			equation = equation.substring(0, equation.length - 1);
 			decimalCheck = decimalCheck.substring(0, decimalCheck.length - 1);
 		} else {
@@ -113,11 +91,7 @@ keys.addEventListener('click', (event) => {
 		const finalResult = handleEquation(equation);
 
 		if (finalResult || finalResult === 0) {
-			result.textContent = !Number.isInteger(finalResult)
-				? finalResult.toFixed(2)
-				: finalResult.toString().length >= 16
-				? finalResult.toExponential(2)
-				: finalResult;
+			result.textContent = !Number.isInteger(finalResult) ? finalResult.toFixed(2) : finalResult.toString().length >= 16 ? finalResult.toExponential(2) : finalResult;
 		} else {
 			result.textContent = 'Math Error';
 		}
@@ -131,16 +105,11 @@ function calculate(firstNumber, operator, secondNumber) {
 	firstNumber = Number(firstNumber);
 	secondNumber = Number(secondNumber);
 
-	if (operator === 'plus' || operator === '+')
-		return firstNumber + secondNumber;
-	if (operator === 'minus' || operator === '-')
-		return firstNumber - secondNumber;
-	if (operator === 'multiply' || operator === 'x')
-		return firstNumber * secondNumber;
-	if (operator === 'divide' || operator === '/')
-		return firstNumber / secondNumber;
-	if (operator === 'remainder' || operator === '%')
-		return firstNumber % secondNumber;
+	if (operator === 'plus' || operator === '+') return firstNumber + secondNumber;
+	if (operator === 'minus' || operator === '-') return firstNumber - secondNumber;
+	if (operator === 'multiply' || operator === 'x') return firstNumber * secondNumber;
+	if (operator === 'divide' || operator === '/') return firstNumber / secondNumber;
+	if (operator === 'remainder' || operator === '%') return firstNumber % secondNumber;
 }
 
 function handleEquation(equation) {
