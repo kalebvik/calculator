@@ -31,19 +31,24 @@ body {
 	margin-bottom: 10px;
 	border-radius: 3px;
 	text-align: right;
-	font-size: 45px;
 }
 
 .calc-display {
 	background: #333;
+	display: flex;
+	flex-direction: column;
 }
 
 .user-input {
 	background: #333;
+	font-size: 24px;
+	letter-spacing: -2px;
+	margin-bottom: 10px;
 }
 
 .result {
 	background: #333;
+	font-size: 32px;
 }
 
 .num-pad {
@@ -64,7 +69,13 @@ button {
 	text-align: center;
 	margin: 10px auto;
 	color: #333;
+	cursor: pointer;
 }
+
+button:hover {
+	background: #c1c7c9;
+}
+
 button.equals {
 	width: 46%;
 	border-radius: 50px;
