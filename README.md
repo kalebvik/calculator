@@ -1,3 +1,3 @@
-\*\* Calculator
+## Calculator
 
 A javascript calculator app.
